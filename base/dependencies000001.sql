@@ -148,4 +148,4 @@ FROM leg.tcontrato con
      LEFT JOIN segu.vpersona per ON per.id_persona = con.id_persona
      LEFT JOIN param.tinstitucion ins ON ins.id_institucion = con.id_institucion
      LEFT JOIN param.vproveedor pro ON pro.id_proveedor = con.id_proveedor;
-/***********************************F-DEP-RCM-LEG-1-25/02/2015*****************************************/
+/***********************************F-DEP-JRR-LEG-1-25/02/2015*****************************************/
