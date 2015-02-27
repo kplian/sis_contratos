@@ -234,12 +234,12 @@ AS
            WHERE ot.id_orden_trabajo = ANY (con.id_orden_trabajo)
          ) AS desc_ot,
          CASE
-           WHEN con.id_persona IS NOT NULL THEN (per.nombre_completo1 || ' - '
-            ::text) || fkcon.numero::text
-           WHEN con.id_institucion IS NOT NULL THEN (ins.nombre::text || ' - '
-            ::text) || fkcon.numero::text
-           WHEN con.id_proveedor IS NOT NULL THEN (pro.desc_proveedor::text ||
+           WHEN fkcon.id_persona IS NOT NULL THEN (fkper.nombre_completo1 ||
             ' - ' ::text) || fkcon.numero::text
+           WHEN fkcon.id_institucion IS NOT NULL THEN (fkins.nombre::text ||
+            ' - ' ::text) || fkcon.numero::text
+           WHEN fkcon.id_proveedor IS NOT NULL THEN (fkpro.desc_proveedor::text
+            || ' - ' ::text) || fkcon.numero::text
            ELSE 'S/N - ' ::text || fkcon.numero::text
          END AS desc_contrato_fk
   FROM leg.tcontrato con
@@ -248,6 +248,11 @@ AS
        LEFT JOIN param.tinstitucion ins ON ins.id_institucion =
         con.id_institucion
        LEFT JOIN param.vproveedor pro ON pro.id_proveedor = con.id_proveedor
-       LEFT JOIN leg.tcontrato fkcon ON fkcon.id_contrato = con.id_contrato_fk;
+       LEFT JOIN leg.tcontrato fkcon ON fkcon.id_contrato = con.id_contrato_fk
+       LEFT JOIN segu.vpersona fkper ON fkper.id_persona = fkcon.id_persona
+       LEFT JOIN param.tinstitucion fkins ON fkins.id_institucion =
+        fkcon.id_institucion
+       LEFT JOIN param.vproveedor fkpro ON fkpro.id_proveedor =
+        fkcon.id_proveedor;
        
 /***********************************F-DEP-JRR-LEG-1-26/02/2015*****************************************/
