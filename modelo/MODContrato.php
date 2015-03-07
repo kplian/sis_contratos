@@ -49,7 +49,8 @@ class MODContrato extends MODbase{
         $this->captura('tipo_plazo','varchar'); 
         $this->captura('id_cotizacion','int4'); 
         $this->captura('sujeto_contrato','text');
-        $this->captura('moneda','varchar'); 
+        $this->captura('moneda','varchar');
+        $this->captura('nro_tramite','varchar');  
         $this->captura('usr_reg','varchar'); 
         $this->captura('usr_mod','varchar'); 
 		

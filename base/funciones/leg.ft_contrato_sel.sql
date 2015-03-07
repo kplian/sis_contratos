@@ -71,6 +71,7 @@ BEGIN
                         con.id_cotizacion,
                         con.sujeto_contrato,
                         con.moneda,
+                        con.nro_tramite,
 						usu1.cuenta as usr_reg,
 						usu2.cuenta as usr_mod	
 						from leg.vcontrato con
