@@ -259,7 +259,7 @@ AS
 
 
 /***********************************I-DEP-RCM-LEG-1-28/02/2015*****************************************/
-CREATE VIEW leg.vcontrato (
+CREATE OR REPLACE VIEW leg.vcontrato (
     id_usuario_reg,
     id_usuario_mod,
     fecha_reg,
@@ -375,7 +375,7 @@ EXECUTE PROCEDURE leg.f_tr_contrato();
 /***********************************F-DEP-RCM-LEG-1-03/03/2015*****************************************/
 
 /***********************************I-DEP-RCM-LEG-1-06/03/2015*****************************************/
-CREATE VIEW leg.vcontrato (
+CREATE OR REPLACE VIEW leg.vcontrato (
     id_usuario_reg,
     id_usuario_mod,
     fecha_reg,
