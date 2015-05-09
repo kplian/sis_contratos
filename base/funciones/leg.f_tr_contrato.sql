@@ -25,9 +25,7 @@ BEGIN
             from wf.testado_wf e
             where id_estado_wf = NEW.id_estado_wf;
             
-            update leg.tcontrato
-            set id_abogado= v_id_abogado
-            where id_contrato = NEW.id_contrato; 
+            NEW.id_abogado=v_id_abogado; 
         end if;
         if (OLD.estado != 'finalizado' and NEW.estado = 'finalizado' and NEW.id_cotizacion is not null) then
             --obtener datos de la cotizacion
@@ -156,11 +154,12 @@ BEGIN
              id_usuario_mod=NEW.id_usuario_mod,
              fecha_mod=now()
            where c.id_cotizacion  = NEW.id_cotizacion;
+           RETURN NULL;
            
         end if;
     END IF;
-    RETURN NULL;
     
+    RETURN NEW;
     
 
 END;
