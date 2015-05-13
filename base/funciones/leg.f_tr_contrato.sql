@@ -25,7 +25,9 @@ BEGIN
             from wf.testado_wf e
             where id_estado_wf = NEW.id_estado_wf;
             
+
             NEW.id_abogado = v_id_abogado; 
+
         end if;
         if (OLD.estado != 'finalizado' and NEW.estado = 'finalizado' and NEW.id_cotizacion is not null) then
             --obtener datos de la cotizacion
@@ -157,8 +159,8 @@ BEGIN
            
         end if;
     END IF;
-    RETURN NEW;
     
+    RETURN NEW;
     
 
 END;
