@@ -25,7 +25,9 @@ BEGIN
             from wf.testado_wf e
             where id_estado_wf = NEW.id_estado_wf;
             
-            NEW.id_abogado=v_id_abogado; 
+
+            NEW.id_abogado = v_id_abogado; 
+
         end if;
         if (OLD.estado != 'finalizado' and NEW.estado = 'finalizado' and NEW.id_cotizacion is not null) then
             --obtener datos de la cotizacion
@@ -90,16 +92,15 @@ BEGIN
                     raise exception 'No se parametrizo el estado "anulado" para el proceso';                 
                  END IF;
                  
-                 select c.id_estado_wf, c.id_proceso_wf, ewf.obs into v_id_estado_wf,v_id_proceso_wf,v_obs
-                 from  leg.tcontrato c
-                 inner join wf.testado_wf ewf on ewf.id_estado_wf = c.id_estado_wf
-                 where c.id_contrato=OLD.id_contrato;
+                 select ewf.obs into v_obs
+                 from wf.testado_wf ewf 
+                 where ewf.id_estado_wf=NEW.id_estado_wf;
                 
                  
                  v_id_estado_actual =  wf.f_registra_estado_wf(v_id_tipo_estado, 
                                                            NULL, 
-                                                           v_id_estado_wf, 
-                                                           v_id_proceso_wf,
+                                                           NEW.id_estado_wf, 
+                                                           NEW.id_proceso_wf,
                                                             NEW.id_usuario_mod,
                                                             NEW.id_usuario_ai,
                                                             NEW.usuario_ai,
