@@ -6,7 +6,7 @@ CONFIGURACION DEL FORMULARIO
 	estadoReclamar: "pendiente_asignacion",
 	swOT: false,
 	arrConceptoIngas: [],
-	
+
     constructor: function(config){
 		Phx.vista[config.clase_generada].superclass.constructor.call(this,config);
 		if (this.config.estado == "borrador") {
@@ -17,6 +17,54 @@ CONFIGURACION DEL FORMULARIO
 		if(this.config.estado == this.estadoReclamar){
 			this.getBoton("btnReclamar").show();
 		}
+		
+		//Crea combo de los tipos de documentos
+		this.tbar.addField(new Ext.form.Label({name: 'label', text:'Documentos:', width: 80}));
+		this.cmbTipoDoc = new Ext.form.ComboBox({
+	        name: 'cmbTipoDoc',
+	        fieldLabel: 'Documentos',
+	        typeAhead: false,
+	        forceSelection: true,
+	        allowBlank: true,
+	        emptyText: 'Documento...',
+	        store: new Ext.data.JsonStore({
+	            url: '../../sis_workflow/control/TipoDocumento/listarTipoDocumentoXTipoPRocesoEstado',
+	            id: 'id_tipo_documento',
+	            root: 'datos',
+	            sortInfo: {
+	                field: 'nombre',
+	                direction: 'ASC'
+	            },
+	            totalProperty: 'total',
+	            fields: ['id_tipo_documento','id_tipo_proceso','id_proceso_macro','nombre','codigo','descripcion','nombre_vista','nombre_archivo_plantilla','esquema_vista'],
+	            // turn on remote sorting
+	            remoteSort: true,
+	            baseParams: {
+	            	start: 0,
+	            	limit: 10,
+	            	id_tipo_proceso: this.config.configProceso[0].atributos.id_tipo_proceso,
+	            	estado_desc: this.config.estado
+	            }
+	        }),
+	        valueField: 'id_tipo_documento',
+			displayField: 'nombre',
+			hiddenName: 'cmbTipoDoc',
+			forceSelection:true,
+			typeAhead: false,
+			triggerAction: 'all',
+			lazyRender:true,
+			mode:'remote',
+			pageSize:10,
+			queryDelay:1000,
+			width:155,
+			minChars:2
+	    });
+	    
+	    this.cmbTipoDoc.store.on('exception', this.conexionFailure);
+	    this.cmbTipoDoc.on('select',this.onDocumento,this);
+		this.tbar.addField(this.cmbTipoDoc);
+		
+
     },
     construyeVariablesContratos: function(){
 		Phx.CP.loadingShow();
@@ -132,13 +180,12 @@ CONFIGURACION DEL FORMULARIO
 				var boolOTreq=true;
 				if(this.Cmp.id_concepto_ingas.internal.items){
 					this.Cmp.id_concepto_ingas.internal.items.forEach(function(entry,index,object) {
-						if(this.arrConceptoIngas.indexOf(entry.id_concepto_ingas)){
+						if(this.arrConceptoIngas.indexOf(entry.id_concepto_ingas)!=-1){
 							alert(entry.id_concepto_ingas)
 							boolOTreq = false;
 						}
 					},this);
 				 }
-				 console.log('AAA:',boolOTreq)
 				 this.Cmp.id_orden_trabajo.allowBlank = boolOTreq;
 
 			} else {
@@ -171,7 +218,46 @@ CONFIGURACION DEL FORMULARIO
 				this.Cmp.id_contrato_fk.allowBlank = false;
 			}
 		}
-	}
+	},
+	
+	onDocumento: function(){
+		var rec = this.sm.getSelected();
+		var recDoc = this.cmbTipoDoc.store.getById(this.cmbTipoDoc.getValue());
+		console.log(recDoc)
+		Phx.CP.loadingShow();
+		Ext.Ajax.request({
+			url : '../../sis_workflow/control/TipoDocumento/generarDocumento',
+			params : {
+				id_proceso_wf    		: rec.data.id_proceso_wf,
+				id_tipo_documento		: recDoc.data.id_tipo_documento,
+				nombre_vista	 		: recDoc.data.nombre_vista,
+				esquema_vista    		: recDoc.data.esquema_vista,
+				nombre_archivo_plantilla: recDoc.data.nombre_archivo_plantilla
+			},
+			success : this.successExport,
+			failure : this.conexionFailure,
+			timeout : this.timeout,
+			scope : this
+		});
+	},
+	
+	preparaMenu:function(n){
+    	var data = this.getSelectedData();
+        var tb =this.tbar;
+        Phx.vista[this.config.clase_generada].superclass.preparaMenu.call(this,n);
+        this.cmbTipoDoc.enable();
+	},
+	
+	liberaMenu:function(){
+		var tb = Phx.vista[this.config.clase_generada].superclass.liberaMenu.call(this);
+        if(tb){
+			this.cmbTipoDoc.disable();
+        }
+
+		return tb;
+  	}
+  	  
+  	  
 }
 
 /*************************
