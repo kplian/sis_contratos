@@ -955,4 +955,94 @@ select wf.f_import_ttipo_estado_rol ('insert','CON','borrador','LEG - Abogado');
 select wf.f_import_ttipo_estado_rol ('insert','CON','finalizado','LEG - Responsable');
 select wf.f_import_ttipo_estado_rol ('insert','CON','finalizado','LEG - Abogado');
 
+select
+	*
+from
+	pxp.f_intermediario_ime(
+		1,
+		null,
+		null::varchar,
+		'ik70t40gvf1qonpgajqrtdc9t5',
+		3135,
+		'172.18.79.119',
+		'99:99:99:99:99:99',
+		'wf.ft_tabla_ime',
+		'WF_EJSCTABLA_PRO',
+		null,
+		'no',
+		null,
+		array [ 'filtro',
+		'ordenacion',
+		'dir_ordenacion',
+		'puntero',
+		'cantidad',
+		'_id_usuario_ai',
+		'_nombre_usuario_ai',
+		'nombre_tabla' ],
+		array [ E' 0 = 0 ',
+		E'',
+		E'',
+		E'',
+		E'',
+		E'NULL',
+		E'NULL',
+		E'contrato' ],
+		array [ 'varchar',
+		'varchar',
+		'varchar',
+		'integer',
+		'integer',
+		'int4',
+		'varchar',
+		'varchar' ],
+		'',
+		null,
+		null
+	)
+	
+	select
+	*
+from
+	pxp.f_intermediario_ime(
+		1,
+		null,
+		null::varchar,
+		'ik70t40gvf1qonpgajqrtdc9t5',
+		3135,
+		'172.18.79.119',
+		'99:99:99:99:99:99',
+		'wf.ft_tabla_ime',
+		'WF_EJSCTABLA_PRO',
+		null,
+		'no',
+		null,
+		array [ 'filtro',
+		'ordenacion',
+		'dir_ordenacion',
+		'puntero',
+		'cantidad',
+		'_id_usuario_ai',
+		'_nombre_usuario_ai',
+		'nombre_tabla' ],
+		array [ E' 0 = 0 ',
+		E'',
+		E'',
+		E'',
+		E'',
+		E'NULL',
+		E'NULL',
+		E'anexo' ],
+		array [ 'varchar',
+		'varchar',
+		'varchar',
+		'integer',
+		'integer',
+		'int4',
+		'varchar',
+		'varchar' ],
+		'',
+		null,
+		null
+	)
+
 /***********************************F-DAT-JRR-LEG-0-30/11/2018****************************************/
