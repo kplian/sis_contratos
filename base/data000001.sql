@@ -4,6 +4,8 @@
 INSERT INTO segu.tsubsistema ( codigo, nombre, fecha_reg, prefijo, estado_reg, nombre_carpeta, id_subsis_orig)
 VALUES ('LEG', 'Módulo de Contratos', '2014-01-16', 'LG', 'activo', 'legal', NULL);
 
+select pxp.f_insert_testructura_gui ('PLANI', 'SISTEMA');
+select pxp.f_insert_tgui ('SISTEMA DE CONTRATOS', '', 'LEG', 'si', NULL, '', 1, '', '', 'LEG');
 ----------------------------------
 --COPY LINES TO SUBSYSTEM data.sql FILE  
 ---------------------------------
