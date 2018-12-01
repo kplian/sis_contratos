@@ -629,6 +629,8 @@ anchor:"50%",
     }
 },
 "store":["si","no"]}}',10,NULL);
+
+select wf.f_import_ttipo_columna ('insert','fk_id_contrato','CON','CON','integer','','','','','','','','NumberField','','no','','',NULL,NULL);
 select wf.f_import_ttipo_documento ('insert','CONTRATO','CON','Contrato','','','escaneado',0.00,NULL);
 select wf.f_import_ttipo_documento ('delete','ADJ1','CON',NULL,NULL,NULL,NULL,NULL,NULL);
 select wf.f_import_ttipo_documento ('delete','ADJ2','CON',NULL,NULL,NULL,NULL,NULL,NULL);
