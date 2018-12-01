@@ -6,7 +6,7 @@ VALUES ('LEG', 'Módulo de Contratos', '2014-01-16', 'LG', 'activo', 'legal', NU
 
 
 select pxp.f_insert_tgui ('SISTEMA DE CONTRATOS', '', 'LEG', 'si', NULL, '', 1, '', '', 'LEG');
-select pxp.f_insert_testructura_gui ('PLANI', 'SISTEMA');
+select pxp.f_insert_testructura_gui ('LEG', 'SISTEMA');
 ----------------------------------
 --COPY LINES TO SUBSYSTEM data.sql FILE  
 ---------------------------------
