@@ -1,12 +1,14 @@
-
 /***********************************I-DAT-JRR-LEG-0-30/11/2018****************************************/
-
 INSERT INTO segu.tsubsistema ( codigo, nombre, fecha_reg, prefijo, estado_reg, nombre_carpeta, id_subsis_orig)
 VALUES ('LEG', 'Módulo de Contratos', '2014-01-16', 'LG', 'activo', 'legal', NULL);
 
 
 select pxp.f_insert_tgui ('SISTEMA DE CONTRATOS', '', 'LEG', 'si', NULL, '', 1, '', '', 'LEG');
 select pxp.f_insert_testructura_gui ('LEG', 'SISTEMA');
+/***********************************F-DAT-JRR-LEG-0-30/11/2018****************************************/
+
+/***********************************I-DAT-JRR-LEG-1-30/11/2018****************************************/
+--COPIAR AQUÍ LA EXPORTACIÓN DE PROCESO MACRO
 ----------------------------------
 --COPY LINES TO SUBSYSTEM data.sql FILE  
 ---------------------------------
@@ -242,7 +244,7 @@ final de validez','','','','','','','DateField','Fecha Fin Estimada','no','','{"
 renderer:function (value,p,record){return value?value.dateFormat("d/m/Y"):""},
 anchor:"50%"}}',180,NULL);
 select wf.f_import_ttipo_columna ('insert','numero','CON','CON','varchar','Número de
-contrato','','','','','','','TextField','Número de contrato','no','','{"config":{anchor:"80%", allowBlank:true},
+contrato','50','','','','','','TextField','Número de contrato','no','','{"config":{anchor:"80%", allowBlank:true},
 bottom_filter: true}',130,NULL);
 select wf.f_import_ttipo_columna ('insert','id_gestion','CON','CON','integer','Gestión en la que fue suscrito el contrato','','ges.gestion gestion integer','inner join param.tgestion ges on ges.id_gestion =
 con.id_gestion','','{
@@ -594,9 +596,9 @@ select wf.f_import_ttipo_columna ('delete','nro_documento','ANX','CON',NULL,NULL
 							NULL,NULL,NULL,NULL,NULL,NULL,NULL);
 select wf.f_import_ttipo_columna ('insert','fecha_proceso_cierre','ANX','CON','date','','','','','','','','DateField','Inicio de Proceso de Cierre','no','','{"config":{format: "d/m/Y",				renderer:function (value,p,record){return value?value.dateFormat("d/m/Y"):""},
 anchor : "50%"}}',6,NULL);
-select wf.f_import_ttipo_columna ('insert','otorgante','ANX','CON','varchar','','50','','','','','','TextField','Otorgante','no','','',10,NULL);
-select wf.f_import_ttipo_columna ('insert','beneficiario','ANX','CON','varchar','','50','','','','','','TextField','Beneficiario','no','','',11,NULL);
-select wf.f_import_ttipo_columna ('insert','cuenta','ANX','CON','varchar','','50','','','','','','TextField','Por cuenta de','no','','',12,NULL);
+select wf.f_import_ttipo_columna ('insert','otorgante','ANX','CON','varchar','','30','','','','','','TextField','Otorgante','no','','',10,NULL);
+select wf.f_import_ttipo_columna ('insert','beneficiario','ANX','CON','varchar','','30','','','','','','TextField','Beneficiario','no','','',11,NULL);
+select wf.f_import_ttipo_columna ('insert','cuenta','ANX','CON','varchar','','30','','','','','','TextField','Por cuenta de','no','','',12,NULL);
 select wf.f_import_ttipo_columna ('delete','gerencia','ANX','CON',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,
 							NULL,NULL,NULL,NULL,NULL,NULL,NULL);
 select wf.f_import_ttipo_columna ('delete','para_garantizar','ANX','CON',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,
@@ -629,8 +631,11 @@ anchor:"50%",
     }
 },
 "store":["si","no"]}}',10,NULL);
-
-select wf.f_import_ttipo_columna ('insert','fk_id_contrato','CON','CON','integer','','','','','','','','NumberField','','no','','',NULL,NULL);
+select wf.f_import_ttipo_columna ('insert','id_tipo_cc','CON','CON','integer','','','','','','','','NumberField','','no','','',NULL,NULL);
+select wf.f_import_ttipo_columna ('insert','plazo_auxiliar','CON','CON','varchar','','1000','','','','','','TextField','','no','','',NULL,NULL);
+select wf.f_import_ttipo_columna ('insert','numero_proceso_contratacion','CON','CON','varchar','','100','','','','','','TextField','','no','','',NULL,NULL);
+select wf.f_import_ttipo_columna ('insert','gerencia','ANX','CON','varchar','','50','','','','','','TextField','','no','','',NULL,NULL);
+select wf.f_import_ttipo_columna ('insert','responsable','ANX','CON','varchar','','50','','','','','','TextField','','no','','',NULL,NULL);
 select wf.f_import_ttipo_documento ('insert','CONTRATO','CON','Contrato','','','escaneado',0.00,NULL);
 select wf.f_import_ttipo_documento ('delete','ADJ1','CON',NULL,NULL,NULL,NULL,NULL,NULL);
 select wf.f_import_ttipo_documento ('delete','ADJ2','CON',NULL,NULL,NULL,NULL,NULL,NULL);
@@ -782,6 +787,7 @@ select wf.f_import_tcolumna_estado ('insert','fecha_elaboracion','CON','CON','fi
 select wf.f_import_tcolumna_estado ('insert','regularizado','CON','CON','borrador','exigir','');
 select wf.f_import_tcolumna_estado ('insert','numero','CON','CON','borrador','registrar','');
 select wf.f_import_tcolumna_estado ('insert','objeto','CON','CON','finalizado','exigir','');
+select wf.f_import_tcolumna_estado ('insert','id_proveedor','CON','CON','finalizado','exigir','');
 select wf.f_import_testructura_estado ('delete','pendiente_asignacion','registro','CON',NULL,NULL);
 select wf.f_import_testructura_estado ('delete','digitalizacion','finalizado','CON',NULL,NULL);
 select wf.f_import_testructura_estado ('delete','vobo_abogado','vobo_jefe_legal','CON',NULL,NULL);
@@ -842,7 +848,7 @@ select wf.f_import_testructura_estado ('insert','3ros_vb_tec_com','3ros_vb_aboga
 select wf.f_import_testructura_estado ('insert','3ros_vb_jefe_legal','3ros_firmas_prov','CON',1,'');
 select wf.f_import_testructura_estado ('insert','3ros_firmas_prov','custodia_fisica','CON',1,'');
 select wf.f_import_testructura_estado ('insert','gs_firmas','finalizado','CON',1,'"{$tabla.tipo}"="gestion_social"');
-select wf.f_import_tfuncionario_tipo_estado ('insert','asignacion','CON',NULL,'LEG',NULL);
+/*select wf.f_import_tfuncionario_tipo_estado ('insert','asignacion','CON',NULL,'LEG',NULL);
 select wf.f_import_tfuncionario_tipo_estado ('insert','vobo_abogado','CON','5151087',NULL,NULL);
 select wf.f_import_tfuncionario_tipo_estado ('insert','vobo_abogado','CON','4455805',NULL,NULL);
 select wf.f_import_tfuncionario_tipo_estado ('insert','vobo_abogado','CON','1709607',NULL,NULL);
@@ -875,7 +881,7 @@ select wf.f_import_tfuncionario_tipo_estado ('insert','3ros_vb_tec_com','CON','3
 select wf.f_import_tfuncionario_tipo_estado ('insert','3ros_firmas_prov','CON','5189324',NULL,'');
 select wf.f_import_tfuncionario_tipo_estado ('insert','3ros_firmas_prov','CON','3150751',NULL,'');
 select wf.f_import_tfuncionario_tipo_estado ('insert','3ros_vb_tec_com','CON','5319494',NULL,'');
-select wf.f_import_tfuncionario_tipo_estado ('insert','custodia_fisica','CON',NULL,'VEN','');
+select wf.f_import_tfuncionario_tipo_estado ('insert','custodia_fisica','CON',NULL,'VEN','');*/
 ----------------------------------
 --COPY LINES TO SUBSYSTEM dependencies.sql FILE  
 ---------------------------------
@@ -893,7 +899,7 @@ select wf.f_import_ttipo_documento_estado ('delete','INFLEG','CON','finalizado',
 select wf.f_import_ttipo_documento_estado ('insert','CONTRATO','CON','finalizado','CON','exigir','superior','"{$tabla.regularizado}"="si"');
 select wf.f_import_ttipo_documento_estado ('insert','CONTRATO','CON','gs_firmas','CON','exigir','superior','');
 select wf.f_import_ttipo_proceso_origen ('insert','CON','LEGAL','COT','contrato_pendiente','obligatorio','adq.f_tiene_contrato');
-select wf.f_import_ttipo_estado_rol ('delete','CON','asignacion','LEG - Responsable');
+/*select wf.f_import_ttipo_estado_rol ('delete','CON','asignacion','LEG - Responsable');
 select wf.f_import_ttipo_estado_rol ('delete','CON','borrador','LEG - Responsable');
 select wf.f_import_ttipo_estado_rol ('insert','CON','asignacion','LEG - Abogado');
 select wf.f_import_ttipo_estado_rol ('delete','CON','vobo_abogado','LEG - Abogado');
@@ -955,7 +961,12 @@ select wf.f_import_ttipo_estado_rol ('insert','CON','vobo_jefe_legal','LEG - Abo
 select wf.f_import_ttipo_estado_rol ('insert','CON','borrador','LEG - Responsable');
 select wf.f_import_ttipo_estado_rol ('insert','CON','borrador','LEG - Abogado');
 select wf.f_import_ttipo_estado_rol ('insert','CON','finalizado','LEG - Responsable');
-select wf.f_import_ttipo_estado_rol ('insert','CON','finalizado','LEG - Abogado');
+select wf.f_import_ttipo_estado_rol ('insert','CON','finalizado','LEG - Abogado');*/
+
+
+/***********************************F-DAT-JRR-LEG-1-30/11/2018****************************************/
+
+/***********************************I-DAT-CAP-LEG-2-13/12/2018****************************************/
 
 select
 	*
@@ -1046,5 +1057,11 @@ from
 		null,
 		null
 	);
+/***********************************F-DAT-CAP-LEG-2-13/12/2018****************************************/
+/***********************************I-DAT-CAP-LEG-3-13/12/2018****************************************/
+ALTER TABLE leg.tcontrato
+  ALTER COLUMN rpc_regional SET DEFAULT 'no'::character varying;
 
-/***********************************F-DAT-JRR-LEG-0-30/11/2018****************************************/
+ALTER TABLE leg.tcontrato
+  ALTER COLUMN rpc_regional SET NOT NULL;
+/***********************************F-DAT-CAP-LEG-3-13/12/2018****************************************/
