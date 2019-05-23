@@ -1,5 +1,5 @@
 =================
-Sistema de Cobros
+Sistema de Contratos
 
 Requiere Framework PXP https://github.com/kplian/pxp
 
