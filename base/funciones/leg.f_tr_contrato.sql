@@ -18,6 +18,7 @@ DECLARE
   v_obs						text;
   v_id_estado_actual		integer;
   v_id_abogado				integer;
+  v_carpeta                 record;
 BEGIN
 	IF TG_OP = 'UPDATE' THEN
     	if (OLD.estado != 'registro' and NEW.estado = 'registro') then
@@ -157,6 +158,53 @@ BEGIN
            where c.id_cotizacion  = NEW.id_cotizacion;
            RETURN NULL;
            
+        end if;
+    	if (OLD.estado != 'finalizado' and NEW.estado = 'finalizado' and NEW.id_cotizacion is null and
+            NEW.tipo = 'gestion_social') then
+
+            --obtener datos de gestion social
+            select c.*, ewf.id_tipo_estado, ewf.id_funcionario, ewf.id_depto
+            into v_carpeta
+            from mgs.tcarpetas c
+                     inner join wf.testado_wf ewf on ewf.id_estado_wf = c.id_estado_wf
+            where id_carpeta = NEW.id_carpeta;
+
+
+            --cambiar la cotizacion al estado siguiente
+            SELECT ps_id_tipo_estado
+            into
+                v_id_tipo_estado_siguiente
+            FROM wf.f_obtener_estado_wf(
+                    v_carpeta.id_proceso_wf,
+                    NULL,
+                    v_carpeta.id_tipo_estado,
+                    'siguiente',
+                    NEW.id_usuario_mod);
+
+            select te.codigo
+            into
+                v_codigo_estado_siguiente
+            from wf.ttipo_estado te
+            where te.id_tipo_estado = v_id_tipo_estado_siguiente[1];
+
+            /*Registrar el estado de registro*/
+            v_id_estado_registro = wf.f_registra_estado_wf(v_id_tipo_estado_siguiente[1], --p_id_tipo_estado_siguiente
+                                                           v_carpeta.id_funcionario,
+                                                           v_carpeta.id_estado_wf, --  p_id_estado_wf_anterior
+                                                           v_carpeta.id_proceso_wf,
+                                                           NEW.id_usuario_mod,
+                                                           NEW.id_usuario_ai,
+                                                           NEW.usuario_ai,
+                                                           null,
+                                                           'Finalización de registro de contrato');
+
+            update mgs.tcarpetas c
+            set id_estado_wf  = v_id_estado_registro,
+                estado        = v_codigo_estado_siguiente,
+                id_usuario_mod=NEW.id_usuario_mod,
+                fecha_mod=now()
+            where c.id_carpeta = NEW.id_carpeta;
+
         end if;
     END IF;
     
