@@ -189,7 +189,7 @@ BEGIN
 
             /*Registrar el estado de registro*/
             v_id_estado_registro = wf.f_registra_estado_wf(v_id_tipo_estado_siguiente[1], --p_id_tipo_estado_siguiente
-                                                           v_carpeta.id_funcionario,
+                                                           v_carpeta.id_funcionario_asig,
                                                            v_carpeta.id_estado_wf, --  p_id_estado_wf_anterior
                                                            v_carpeta.id_proceso_wf,
                                                            NEW.id_usuario_mod,
