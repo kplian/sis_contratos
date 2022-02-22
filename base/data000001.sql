@@ -229,23 +229,39 @@ select wf.f_import_ttipo_estado ('insert','3ros_vb_abogado','CON','Visto bueno a
 select wf.f_import_ttipo_estado ('insert','3ros_vb_jefe_legal','CON','Firma jefe legal (3ros)','no','no','no','listado','','ninguno','','','si','no',NULL,'<font color="99CC00" size="5"><font size="4">{TIPO_PROCESO}</font></font><br><br><b>&nbsp;</b>Tramite:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; <b>{NUM_TRAMITE}</b><br><b>&nbsp;</b>Usuario :<b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {USUARIO_PREVIO} </b>en estado<b>&nbsp; {ESTADO_ANTERIOR}<br></b>&nbsp;<b>Responsable:&nbsp;&nbsp; &nbsp;&nbsp; </b><b>{FUNCIONARIO_PREVIO}&nbsp; {DEPTO_PREVIO}<br>&nbsp;</b>Estado Actual<b>: &nbsp; &nbsp;&nbsp; {ESTADO_ACTUAL}</b><br><br><br>&nbsp;{OBS} <br>','Aviso WF ,  {PROCESO_MACRO}  ({NUM_TRAMITE})','','no','','','','','','','',NULL);
 select wf.f_import_ttipo_estado ('insert','3ros_vb_tec_com','CON','Visto bueno técnico comercial (3ros)','no','no','no','listado','','ninguno','','','no','no',NULL,'<font color="99CC00" size="5"><font size="4">{TIPO_PROCESO}</font></font><br><br><b>&nbsp;</b>Tramite:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; <b>{NUM_TRAMITE}</b><br><b>&nbsp;</b>Usuario :<b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {USUARIO_PREVIO} </b>en estado<b>&nbsp; {ESTADO_ANTERIOR}<br></b>&nbsp;<b>Responsable:&nbsp;&nbsp; &nbsp;&nbsp; </b><b>{FUNCIONARIO_PREVIO}&nbsp; {DEPTO_PREVIO}<br>&nbsp;</b>Estado Actual<b>: &nbsp; &nbsp;&nbsp; {ESTADO_ACTUAL}</b><br><br><br>&nbsp;{OBS} <br>','Aviso WF ,  {PROCESO_MACRO}  ({NUM_TRAMITE})','','no','','','','','','','',NULL);
 select wf.f_import_ttipo_estado ('insert','3ros_firmas_prov','CON','Firmas clientes y digitalización (3ros)','no','no','no','listado','','ninguno','','','no','no',NULL,'<font color="99CC00" size="5"><font size="4">{TIPO_PROCESO}</font></font><br><br><b>&nbsp;</b>Tramite:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp; &nbsp;&nbsp; <b>{NUM_TRAMITE}</b><br><b>&nbsp;</b>Usuario :<b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {USUARIO_PREVIO} </b>en estado<b>&nbsp; {ESTADO_ANTERIOR}<br></b>&nbsp;<b>Responsable:&nbsp;&nbsp; &nbsp;&nbsp; </b><b>{FUNCIONARIO_PREVIO}&nbsp; {DEPTO_PREVIO}<br>&nbsp;</b>Estado Actual<b>: &nbsp; &nbsp;&nbsp; {ESTADO_ACTUAL}</b><br><br><br>&nbsp;{OBS} <br>','Aviso WF ,  {PROCESO_MACRO}  ({NUM_TRAMITE})','','no','','','','','','','',NULL);
-select wf.f_import_ttipo_columna ('insert','tipo','CON','CON','varchar','Elija el Tipo de Contrato','30','','','','','','TextField','Tipo de Contrato','si','','{"config":{"emptyText":"Tipo...",
-"typeAhead": false,       "triggerAction": "all",
-"lazyRender":true,
-"mode": "local",
-"store":["administrativo","gestion_social","servicio_3ros"]}}',70,NULL);
-select wf.f_import_ttipo_columna ('insert','objeto','CON','CON','text','','','','','','','','TextArea','Objeto del Contrato','no','','{bottom_filter: true}',90,NULL);
+select wf.f_import_ttipo_columna (
+	'insert',
+'tipo',
+'CON',
+'CON',
+'varchar'
+,'Elija el Tipo de Contrato'
+,'30',
+'',
+'',
+'',
+'',
+'',
+'TextField',
+'Tipo de Contrato',
+'si',
+'',
+'{"config":{"emptyText":"Tipo...","typeAhead": false,       "triggerAction": "all","lazyRender":true,"mode": "local","store":["administrativo","gestion_social","servicio_3ros"]}}',
+70,
+NULL, NULL, NULL, NULL
+);
+select wf.f_import_ttipo_columna ('insert','objeto','CON','CON','text','','','','','','','','TextArea','Objeto del Contrato','no','','{bottom_filter: true}',90,NULL, NULL, NULL, NULL);
 select wf.f_import_ttipo_columna ('insert','fecha_inicio','CON','CON','date','La fecha en la que empieza a correr el contrato','','','','','','','DateField','Fecha Inicio Estimada','no','','{"config":{format: "d/m/Y", renderer:function
 (value,p,record){return value?value.dateFormat("d/m/Y"):""},
-anchor : "50%"}}',170,NULL);
+anchor : "50%"}}',170,NULL, NULL, NULL, NULL);
 select wf.f_import_ttipo_columna ('insert','fecha_fin','CON','CON','date','Fecha en la que termina la validez del contrato. Dejar en blanco si no tiene fecha
 final de validez','','','','','','','DateField','Fecha Fin Estimada','no','','{"config":{format:
 "d/m/Y",
 renderer:function (value,p,record){return value?value.dateFormat("d/m/Y"):""},
-anchor:"50%"}}',180,NULL);
+anchor:"50%"}}',180,NULL, NULL, NULL, NULL);
 select wf.f_import_ttipo_columna ('insert','numero','CON','CON','varchar','Número de
 contrato','50','','','','','','TextField','Número de contrato','no','','{"config":{anchor:"80%", allowBlank:true},
-bottom_filter: true}',130,NULL);
+bottom_filter: true}',130,NULL, NULL, NULL, NULL);
 select wf.f_import_ttipo_columna ('insert','id_gestion','CON','CON','integer','Gestión en la que fue suscrito el contrato','','ges.gestion gestion integer','inner join param.tgestion ges on ges.id_gestion =
 con.id_gestion','','{
        pfiltro : "ges.gestion",
@@ -259,9 +275,9 @@ type : "numeric"
   gwidth : 100,
   renderer : function (value, p, record){return String.format("{0}",
 record.data["gestion"]);}
-          }}',1,NULL);
-select wf.f_import_ttipo_columna ('insert','id_persona','CON','CON','integer','Persona con la que se suscribe el contrato','','','','','','','NumberField','','si','','',NULL,NULL);
-select wf.f_import_ttipo_columna ('insert','id_institucion','CON','CON','integer','Institución con la que se suscribe el contrato','','','','','','','NumberField','','si','','',NULL,NULL);
+          }}',1,NULL, NULL, NULL, NULL);
+select wf.f_import_ttipo_columna ('insert','id_persona','CON','CON','integer','Persona con la que se suscribe el contrato','','','','','','','NumberField','','si','','',NULL,NULL, NULL, NULL, NULL);
+select wf.f_import_ttipo_columna ('insert','id_institucion','CON','CON','integer','Institución con la que se suscribe el contrato','','','','','','','NumberField','','si','','',NULL,NULL, NULL, NULL, NULL);
 select wf.f_import_ttipo_columna ('insert','id_proveedor','CON','CON','integer','Proveedor con el que se
 suscribe el contrato','','prov.desc_proveedor desc_proveedor varchar','left join param.vproveedor prov on
 prov.id_proveedor = con.id_proveedor','','{pfiltro:"prov.desc_proveedor",type:"string"}','desc_proveedor string','NumberField','Proveedor','si','PROVEEDOR','{"config":{
@@ -273,11 +289,11 @@ prov.id_proveedor = con.id_proveedor','','{pfiltro:"prov.desc_proveedor",type:"s
                 gwidth:200,                
                 gdisplayField: "desc_proveedor"
              },
-bottom_filter: true}',120,NULL);
-select wf.f_import_ttipo_columna ('insert','observaciones','CON','CON','text','Observaciones a este Contrato','','','','','','','TextArea','','no','','',NULL,NULL);
-select wf.f_import_ttipo_columna ('insert','solicitud','CON','CON','text','Detalle de la solicitud para elaboración de contrato','','','','','','','TextArea','Solicitud','no','','',100,NULL);
+bottom_filter: true}',120,NULL, NULL, NULL, NULL);
+select wf.f_import_ttipo_columna ('insert','observaciones','CON','CON','text','Observaciones a este Contrato','','','','','','','TextArea','','no','','',NULL,NULL, NULL, NULL, NULL);
+select wf.f_import_ttipo_columna ('insert','solicitud','CON','CON','text','Detalle de la solicitud para elaboración de contrato','','','','','','','TextArea','Solicitud','no','','',100,NULL, NULL, NULL, NULL);
 select wf.f_import_ttipo_columna ('insert','monto','CON','CON','numeric','El monto del contrato por lo general debe ser el monto
-total','18_2','','','','','','NumberField','Monto del contrato','no','','',150,NULL);
+total','18_2','','','','','','NumberField','Monto del contrato','no','','',150,NULL, NULL, NULL, NULL);
 select wf.f_import_ttipo_columna ('insert','id_moneda','CON','CON','integer','','','mon.moneda moneda varchar','inner join param.tmoneda mon on mon.id_moneda =
 con.id_moneda','','{
                 pfiltro:"mon.moneda",
@@ -289,32 +305,32 @@ con.id_moneda','','{
                 fieldLabel:"Moneda",
                 gdisplayField:"moneda",//mapea al store del grid
                 gwidth:50
-             }}',140,NULL);
+             }}',140,NULL, NULL, NULL, NULL);
 select wf.f_import_ttipo_columna ('insert','fecha_elaboracion','CON','CON','date','Fecha de Elaboración','','','','','','','DateField','Fecha de elaboración','no','','{"config":{renderer:function (value,p,record){return
 value?value.dateFormat("d/m/Y"):""},
 anchor:"50%",
-format: "d/m/Y"}}',160,NULL);
-select wf.f_import_ttipo_columna ('insert','plazo','CON','CON','integer','Plazo en Días','','','','','','','NumberField','','no','','{"config":{anchor:"80%"}}',NULL,NULL);
+format: "d/m/Y"}}',160,NULL, NULL, NULL, NULL);
+select wf.f_import_ttipo_columna ('insert','plazo','CON','CON','integer','Plazo en Días','','','','','','','NumberField','','no','','{"config":{anchor:"80%"}}',NULL,NULL, NULL, NULL, NULL);
 select wf.f_import_ttipo_columna ('insert','tipo_plazo','CON','CON','varchar','Días hábiles o días calendario','','','','','','','string','','si','','{"config":{"emptyText":"Tipo...",
 "typeAhead": false,       "triggerAction": "all",
 anchor:"50%",
 "lazyRender":true,
 "mode": "local",
-"store":["fecha_fija","tiempo_indefinido"]}}',NULL,NULL);
-select wf.f_import_ttipo_columna ('insert','id_cotizacion','CON','CON','integer','','','','','','','','NumberField','','no','','',NULL,NULL);
+"store":["fecha_fija","tiempo_indefinido"]}}',NULL,NULL, NULL, NULL, NULL);
+select wf.f_import_ttipo_columna ('insert','id_cotizacion','CON','CON','integer','','','','','','','','NumberField','','no','','',NULL,NULL, NULL, NULL, NULL);
 select wf.f_import_ttipo_columna ('insert','periodicidad_pago','CON','CON','varchar','Periodicidad con la que se realizará los pagos al
 proveedor','50','','','','','','TextField','Periodicidad Pago','si','','{"config":{"emptyText":"Period...",
 "typeAhead": false,       "triggerAction": "all",
 anchor:"50%",
 "lazyRender":true,
 "mode": "local",
-"store":["mensual","bimestral","trimestral","anual","pago_unico","otro"]}}',190,NULL);
+"store":["mensual","bimestral","trimestral","anual","pago_unico","otro"]}}',190,NULL, NULL, NULL, NULL);
 select wf.f_import_ttipo_columna ('insert','tiene_retencion','CON','CON','varchar','Si tiene retención de garantía','2','','','','','','TextField','','si','','{"config":{"emptyText":"Tiene...",
 "typeAhead": false,       "triggerAction": "all",
 anchor:"50%",
 "lazyRender":true,
 "mode": "local",
-"store":["si","no"]}}',NULL,NULL);
+"store":["si","no"]}}',NULL,NULL, NULL, NULL, NULL);
 select wf.f_import_ttipo_columna ('insert','tipo','ANX','CON','varchar','Tipo del anexo ','30','','','','','','TextField','Tipo de Anexo','si','','{"config":
 {
 "typeAhead": false,
@@ -323,17 +339,17 @@ select wf.f_import_ttipo_columna ('insert','tipo','ANX','CON','varchar','Tipo de
 "lazyRender":true,
 "mode": "local",
 "store":[
-"Buena ejecucion de obra","Seriedad de prueba","Buen uso de anticipo","Garantia de funcionamiento de Maquinaria y Equipo"]}}',13,NULL);
-select wf.f_import_ttipo_columna ('insert','descripcion','ANX','CON','varchar','Descripción del anexo registrado','1000','','','','','','TextArea','Descripción','no','','',NULL,NULL);
+"Buena ejecucion de obra","Seriedad de prueba","Buen uso de anticipo","Garantia de funcionamiento de Maquinaria y Equipo"]}}',13,NULL, NULL, NULL, NULL);
+select wf.f_import_ttipo_columna ('insert','descripcion','ANX','CON','varchar','Descripción del anexo registrado','1000','','','','','','TextArea','Descripción','no','','',NULL,NULL, NULL, NULL, NULL);
 select wf.f_import_ttipo_columna ('insert','fecha_desde','ANX','CON','date','Fecha inicial de la vigencia del anexo','','','','','','','DateField','Fecha Apertura','no','','{"config":{format: "d/m/Y",				renderer:function (value,p,record){return value?value.dateFormat("d/m/Y"):""},
-anchor : "50%"}}',7,NULL);
+anchor : "50%"}}',7,NULL, NULL, NULL, NULL);
 select wf.f_import_ttipo_columna ('insert','fecha_hasta','ANX','CON','date','Fecha final de la vigencia del anexo','','','','','','','DateField','Fecha Vencimiento','no','','{"config":{format: "d/m/Y",				renderer:function (value,p,record){return value?value.dateFormat("d/m/Y"):""},
-anchor : "50%"}}',8,NULL);
+anchor : "50%"}}',8,NULL, NULL, NULL, NULL);
 select wf.f_import_ttipo_columna ('insert','modo','CON','CON','varchar','Se refiere si será Contrato normal, adenda u otra modalidad','30','','','','','','TextField','Tipo','si','','{"config":{"emptyText":"Modo...",
 "typeAhead": false,       		"triggerAction": "all",
 "lazyRender":true,
 "mode": "local",
-"store":["contrato","adenda"]}}',220,NULL);
+"store":["contrato","adenda"]}}',220,NULL, NULL, NULL, NULL);
 select wf.f_import_ttipo_columna ('insert','id_contrato_fk','CON','CON','integer','','','view.desc_contrato_fk desc_contrato_fk text','','',NULL,'desc_contrato_fk string','NumberField','','si','','{"config":{
 				name: "id_contrato_fk",
 				hiddenName: "id_contrato_fk",
@@ -374,7 +390,7 @@ select wf.f_import_ttipo_columna ('insert','id_contrato_fk','CON','CON','integer
 					return String.format("{0}", record.data["desc_contrato_fk"]);
 				}
 				
-			}}',221,NULL);
+			}}',221,NULL, NULL, NULL, NULL);
 select wf.f_import_ttipo_columna ('insert','id_concepto_ingas','CON','CON','integer[]','Conceptos de Gasto','','view.desc_ingas desc_ingas text','inner join leg.vcontrato view on view.id_contrato = con.id_contrato','','','desc_ingas string','TextField','Concepto de Gasto','si','','			{"config":{
                 name:"id_concepto_ingas",
                 fieldLabel:"Conceptos Gasto",
@@ -408,7 +424,7 @@ select wf.f_import_ttipo_columna ('insert','id_concepto_ingas','CON','CON','inte
                 gwidth: 200,  
 				enableMultiSelect:true,
                 renderer:function(value, p, record){return String.format("{0}", record.data["desc_ingas"]);}
-            }}',200,NULL);
+            }}',200,NULL, NULL, NULL, NULL);
 select wf.f_import_ttipo_columna ('insert','id_orden_trabajo','CON','CON','integer[]','Ordenes de Trabajo','','view.desc_ot desc_ot text','','','','desc_ot string','TextField','','si','','			{"config":{
                 name:"id_orden_trabajo",
                 fieldLabel:"Ordenes de Trabajo",
@@ -443,28 +459,28 @@ select wf.f_import_ttipo_columna ('insert','id_orden_trabajo','CON','CON','integ
 				gwidth: 200,  
 				enableMultiSelect:true,
                 renderer:function(value, p, record){return String.format("{0}", record.data["desc_ot"]);}
-            }}',NULL,NULL);
-select wf.f_import_ttipo_columna ('insert','cargo','CON','CON','varchar','Cargo','50','','','','','','TextField','','no','','',NULL,NULL);
+            }}',NULL,NULL, NULL, NULL, NULL);
+select wf.f_import_ttipo_columna ('insert','cargo','CON','CON','varchar','Cargo','50','','','','','','TextField','','no','','',NULL,NULL, NULL, NULL, NULL);
 select wf.f_import_ttipo_columna ('insert','forma_contratacion','CON','CON','varchar','Forma de contratación','30','','','','','','TextField','','si','','{"config":{"emptyText":"Tipo...",
 "typeAhead": false,       "triggerAction": "all",
 anchor:"50%",
 "lazyRender":true,
 "mode": "local",
-"store":["forma1","forma2","forma3"]}}',NULL,NULL);
+"store":["forma1","forma2","forma3"]}}',NULL,NULL, NULL, NULL, NULL);
 select wf.f_import_ttipo_columna ('insert','modalidad','CON','CON','varchar','Modalidad del contrato','30','','','','','','TextField','','si','','{"config":{"emptyText":"Tipo...",
 "typeAhead": false,       "triggerAction": "all",
 anchor:"50%",
 "lazyRender":true,
 "mode": "local",
-"store":["modalidad1","modalidad2"]}}',NULL,NULL);
-select wf.f_import_ttipo_columna ('insert','representante_legal','CON','CON','varchar','Representante Legal','100','','','','','','TextField','','no','','',NULL,NULL);
-select wf.f_import_ttipo_columna ('insert','rpc','CON','CON','varchar','RPC','100','','','','','','TextField','','no','','',NULL,NULL);
-select wf.f_import_ttipo_columna ('insert','mae','CON','CON','varchar','MAE','100','','','','','','TextField','','no','','',NULL,NULL);
+"store":["modalidad1","modalidad2"]}}',NULL,NULL, NULL, NULL, NULL);
+select wf.f_import_ttipo_columna ('insert','representante_legal','CON','CON','varchar','Representante Legal','100','','','','','','TextField','','no','','',NULL,NULL, NULL, NULL, NULL);
+select wf.f_import_ttipo_columna ('insert','rpc','CON','CON','varchar','RPC','100','','','','','','TextField','','no','','',NULL,NULL, NULL, NULL, NULL);
+select wf.f_import_ttipo_columna ('insert','mae','CON','CON','varchar','MAE','100','','','','','','TextField','','no','','',NULL,NULL, NULL, NULL, NULL);
 select wf.f_import_ttipo_columna ('insert','contrato_adhesion','CON','CON','varchar','','2','','','','','','TextField','Adhesión','si','','{"config":{"emptyText":"Adhesion...",
 "typeAhead": false,       "triggerAction": "all",
 "lazyRender":true,
 "mode": "local",
-"store":["si","no"]}}',210,NULL);
+"store":["si","no"]}}',210,NULL, NULL, NULL, NULL);
 select wf.f_import_ttipo_columna ('insert','id_abogado','CON','CON','integer','Abogado Asignado','','desc_abogado desc_abogado text','','','','desc_abogado string','NumberField','Abogado','si','FUNCIONARIO','{"config":{
        		    name:"id_abogado",
        		     hiddenName: "id_abogado",
@@ -479,7 +495,7 @@ select wf.f_import_ttipo_columna ('insert','id_abogado','CON','CON','integer','A
 
 
 
-',110,NULL);
+',110,NULL, NULL, NULL, NULL);
 select wf.f_import_ttipo_columna ('insert','id_lugar','CON','CON','integer','Lugar en el que firmará el proveedor','','lug.nombre nombre_lugar varchar','left join param.tlugar lug on lug.id_lugar = con.id_lugar','','{
                 pfiltro:"lug.nombre",
                 type:"string"
@@ -519,7 +535,7 @@ select wf.f_import_ttipo_columna ('insert','id_lugar','CON','CON','integer','Lug
 				renderer:function (value, p, record){return String.format("{0}", record.data["lugar"]);}
 				
 			}
-		}',NULL,NULL);
+		}',NULL,NULL, NULL, NULL, NULL);
 select wf.f_import_ttipo_columna ('insert','id_funcionario','CON','CON','integer','Nombre del solicitante del contrato','','solicitante solicitante text','','','','solicitante string','NumberField','Solicitante','si','FUNCIONARIO','
 {"config":{
        		    name:"id_funcionario",
@@ -532,83 +548,83 @@ select wf.f_import_ttipo_columna ('insert','id_funcionario','CON','CON','integer
    				valueField: "id_funcionario",
    			    gdisplayField: "solicitante",   			   
       			renderer:function(value, p, record){return String.format("{0}", record.data["solicitante"]);}
-       	     }}',80,NULL);
-select wf.f_import_ttipo_columna ('insert','rpc_regional','CON','CON','varchar','','','','','','','','TextField','','no','','',NULL,NULL);
+       	     }}',80,NULL, NULL, NULL, NULL);
+select wf.f_import_ttipo_columna ('insert','rpc_regional','CON','CON','varchar','','','','','','','','TextField','','no','','',NULL,NULL, NULL, NULL, NULL);
 select wf.f_import_ttipo_columna ('insert','bancarizacion','CON','CON','varchar','Si se bancariza o no este contrato','2','','','','','','TextField','','si','','{"config":{"emptyText":"Banc...",
 "typeAhead": false,       "triggerAction": "all",
 "lazyRender":true,
 "mode": "local",
-"store":["si","no"]}}',NULL,NULL);
+"store":["si","no"]}}',NULL,NULL, NULL, NULL, NULL);
 select wf.f_import_ttipo_columna ('insert','tipo_monto','CON','CON','varchar','Si el monto del contrato es abierto (por tasa o precio unitario) o cerrado con un monto total fijo','','','','','','','TextField','','si','','{"config":{"emptyText":"Monto...",
 "typeAhead": false,       "triggerAction": "all",
 "lazyRender":true,
 "mode": "local",
-"store":["abierto","cerrado"]}}',NULL,NULL);
+"store":["abierto","cerrado"]}}',NULL,NULL, NULL, NULL, NULL);
 select wf.f_import_ttipo_columna ('insert','resolucion_bancarizacion','CON','CON','varchar','Que resolución de bancarización aplica','','','','','','','TextField','','si','','{"config":{"emptyText":"Reso...",
 "typeAhead": false,       "triggerAction": "all",
 "lazyRender":true,
 "mode": "local",
-"store":["10-0017-15","10-0011-11"]}}',NULL,NULL);
+"store":["10-0017-15","10-0011-11"]}}',NULL,NULL, NULL, NULL, NULL);
 select wf.f_import_ttipo_columna ('delete','id_agencia','CON','CON',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,
-							NULL,NULL,NULL,NULL,NULL,NULL,NULL);
+							NULL,NULL,NULL,NULL,NULL,NULL,NULL, NULL, NULL, NULL);
 select wf.f_import_ttipo_columna ('delete','tipo_agencia','CON','CON',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,
-							NULL,NULL,NULL,NULL,NULL,NULL,NULL);
+							NULL,NULL,NULL,NULL,NULL,NULL,NULL, NULL, NULL, NULL);
 select wf.f_import_ttipo_columna ('delete','moneda_restrictiva','CON','CON',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,
-							NULL,NULL,NULL,NULL,NULL,NULL,NULL);
+							NULL,NULL,NULL,NULL,NULL,NULL,NULL, NULL, NULL, NULL);
 select wf.f_import_ttipo_columna ('delete','cuenta_bancaria1','CON','CON',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,
-							NULL,NULL,NULL,NULL,NULL,NULL,NULL);
+							NULL,NULL,NULL,NULL,NULL,NULL,NULL, NULL, NULL, NULL);
 select wf.f_import_ttipo_columna ('delete','entidad_bancaria1','CON','CON',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,
-							NULL,NULL,NULL,NULL,NULL,NULL,NULL);
+							NULL,NULL,NULL,NULL,NULL,NULL,NULL, NULL, NULL, NULL);
 select wf.f_import_ttipo_columna ('delete','nombre_cuenta_bancaria1','CON','CON',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,
-							NULL,NULL,NULL,NULL,NULL,NULL,NULL);
+							NULL,NULL,NULL,NULL,NULL,NULL,NULL, NULL, NULL, NULL);
 select wf.f_import_ttipo_columna ('delete','cuenta_bancaria2','CON','CON',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,
-							NULL,NULL,NULL,NULL,NULL,NULL,NULL);
+							NULL,NULL,NULL,NULL,NULL,NULL,NULL, NULL, NULL, NULL);
 select wf.f_import_ttipo_columna ('delete','entidad_bancaria2','CON','CON',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,
-							NULL,NULL,NULL,NULL,NULL,NULL,NULL);
+							NULL,NULL,NULL,NULL,NULL,NULL,NULL, NULL, NULL, NULL);
 select wf.f_import_ttipo_columna ('delete','nombre_cuenta_bancaria2','CON','CON',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,
-							NULL,NULL,NULL,NULL,NULL,NULL,NULL);
+							NULL,NULL,NULL,NULL,NULL,NULL,NULL, NULL, NULL, NULL);
 select wf.f_import_ttipo_columna ('delete','formas_pago','CON','CON',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,
-							NULL,NULL,NULL,NULL,NULL,NULL,NULL);
-select wf.f_import_ttipo_columna ('insert','banco','ANX','CON','varchar','','30','','','','','','TextField','Banco','no','','',NULL,NULL);
+							NULL,NULL,NULL,NULL,NULL,NULL,NULL, NULL, NULL, NULL);
+select wf.f_import_ttipo_columna ('insert','banco','ANX','CON','varchar','','30','','','','','','TextField','Banco','no','','',NULL,NULL, NULL, NULL, NULL);
 select wf.f_import_ttipo_columna ('insert','tipo_boleta','ANX','CON','varchar','','20','','','','','','TextField','Tipo Boleta','si','','{"config":{"emptyText":"tipo...",
 "typeAhead": false,       		"triggerAction": "all",
 "lazyRender":true,
 "mode": "local",
-"store":["boleta","poliza"]}}',NULL,NULL);
-select wf.f_import_ttipo_columna ('insert','moneda','ANX','CON','varchar','','3','','','','','','TextField','Moneda','no','','',NULL,NULL);
-select wf.f_import_ttipo_columna ('insert','monto','ANX','CON','numeric','','','','','','','','NumberField','Monto','no','','',9,NULL);
+"store":["boleta","poliza"]}}',NULL,NULL, NULL, NULL, NULL);
+select wf.f_import_ttipo_columna ('insert','moneda','ANX','CON','varchar','','3','','','','','','TextField','Moneda','no','','',NULL,NULL, NULL, NULL, NULL);
+select wf.f_import_ttipo_columna ('insert','monto','ANX','CON','numeric','','','','','','','','NumberField','Monto','no','','',9,NULL, NULL, NULL, NULL);
 select wf.f_import_ttipo_columna ('delete','tipo_garantia','ANX','CON',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,
-							NULL,NULL,NULL,NULL,NULL,NULL,NULL);
+							NULL,NULL,NULL,NULL,NULL,NULL,NULL, NULL, NULL, NULL);
 select wf.f_import_ttipo_columna ('insert','tipo_garantia','ANX','CON','varchar','','30','','','','','','TextField','Tipo de Garantia','si','','{"config":
 {
 "typeAhead": false,       		"triggerAction": "all",
 "lazyRender":true,
 "mode": "local",
-"store":["emitidos","recibidos","otros"]}}',4,NULL);
+"store":["emitidos","recibidos","otros"]}}',4,NULL, NULL, NULL, NULL);
 select wf.f_import_ttipo_columna ('insert','tipo_documento','ANX','CON','varchar','','30','','','','','','TextField','Tipo de Documento','si','','{"config":
 {
 "typeAhead": false,       		"triggerAction": "all",
 "lazyRender":true,
 "mode": "local",
-"store":["Garantias Bancarias","Poliza de seguro","Fianza Bancaria","Causion","Carta de Credito Standy"]}}',3,NULL);
-select wf.f_import_ttipo_columna ('insert','nro_documento','ANX','CON','varchar','','30','','','','','','TextField','Nro de Documento','no','','',5,NULL);
+"store":["Garantias Bancarias","Poliza de seguro","Fianza Bancaria","Causion","Carta de Credito Standy"]}}',3,NULL, NULL, NULL, NULL);
+select wf.f_import_ttipo_columna ('insert','nro_documento','ANX','CON','varchar','','30','','','','','','TextField','Nro de Documento','no','','',5,NULL, NULL, NULL, NULL);
 select wf.f_import_ttipo_columna ('delete','nro_documento','ANX','CON',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,
-							NULL,NULL,NULL,NULL,NULL,NULL,NULL);
+							NULL,NULL,NULL,NULL,NULL,NULL,NULL, NULL, NULL, NULL);
 select wf.f_import_ttipo_columna ('insert','fecha_proceso_cierre','ANX','CON','date','','','','','','','','DateField','Inicio de Proceso de Cierre','no','','{"config":{format: "d/m/Y",				renderer:function (value,p,record){return value?value.dateFormat("d/m/Y"):""},
-anchor : "50%"}}',6,NULL);
-select wf.f_import_ttipo_columna ('insert','otorgante','ANX','CON','varchar','','30','','','','','','TextField','Otorgante','no','','',10,NULL);
-select wf.f_import_ttipo_columna ('insert','beneficiario','ANX','CON','varchar','','30','','','','','','TextField','Beneficiario','no','','',11,NULL);
-select wf.f_import_ttipo_columna ('insert','cuenta','ANX','CON','varchar','','30','','','','','','TextField','Por cuenta de','no','','',12,NULL);
+anchor : "50%"}}',6,NULL, NULL, NULL, NULL);
+select wf.f_import_ttipo_columna ('insert','otorgante','ANX','CON','varchar','','30','','','','','','TextField','Otorgante','no','','',10,NULL, NULL, NULL, NULL);
+select wf.f_import_ttipo_columna ('insert','beneficiario','ANX','CON','varchar','','30','','','','','','TextField','Beneficiario','no','','',11,NULL, NULL, NULL, NULL);
+select wf.f_import_ttipo_columna ('insert','cuenta','ANX','CON','varchar','','30','','','','','','TextField','Por cuenta de','no','','',12,NULL, NULL, NULL, NULL);
 select wf.f_import_ttipo_columna ('delete','gerencia','ANX','CON',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,
-							NULL,NULL,NULL,NULL,NULL,NULL,NULL);
+							NULL,NULL,NULL,NULL,NULL,NULL,NULL, NULL, NULL, NULL);
 select wf.f_import_ttipo_columna ('delete','para_garantizar','ANX','CON',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,
-							NULL,NULL,NULL,NULL,NULL,NULL,NULL);
-select wf.f_import_ttipo_columna ('insert','garantizar_descripcion','ANX','CON','varchar','','100','','','','','','TextArea','Para garantizar descripcion','no','','',14,NULL);
-select wf.f_import_ttipo_columna ('insert','observacion','ANX','CON','varchar','','200','','','','','','TextArea','Observaciones','no','','',15,NULL);
+							NULL,NULL,NULL,NULL,NULL,NULL,NULL, NULL, NULL, NULL);
+select wf.f_import_ttipo_columna ('insert','garantizar_descripcion','ANX','CON','varchar','','100','','','','','','TextArea','Para garantizar descripcion','no','','',14,NULL, NULL, NULL, NULL);
+select wf.f_import_ttipo_columna ('insert','observacion','ANX','CON','varchar','','200','','','','','','TextArea','Observaciones','no','','',15,NULL, NULL, NULL, NULL);
 select wf.f_import_ttipo_columna ('delete','responsable','ANX','CON',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,
-							NULL,NULL,NULL,NULL,NULL,NULL,NULL);
+							NULL,NULL,NULL,NULL,NULL,NULL,NULL, NULL, NULL, NULL);
 select wf.f_import_ttipo_columna ('delete','id_persona','ANX','CON',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,
-							NULL,NULL,NULL,NULL,NULL,NULL,NULL);
+							NULL,NULL,NULL,NULL,NULL,NULL,NULL, NULL, NULL, NULL);
 select wf.f_import_ttipo_columna ('insert','id_uo','ANX','CON','integer','','','','','','','','NumberField','Gerencia','si','UO','{"config":
 {
 "mode":"remote",		              
@@ -617,8 +633,8 @@ select wf.f_import_ttipo_columna ('insert','id_uo','ANX','CON','integer','','','
 "baseParams":{gerencia:"si"}
 },
 "bottom_filter": true
-}',1,NULL);
-select wf.f_import_ttipo_columna ('insert','id_funcionario','ANX','CON','integer','','','','','','','','NumberField','Funcionario','si','','',2,NULL);
+}',1,NULL, NULL, NULL, NULL);
+select wf.f_import_ttipo_columna ('insert','id_funcionario','ANX','CON','integer','','','','','','','','NumberField','Funcionario','si','','',2,NULL, NULL, NULL, NULL);
 select wf.f_import_ttipo_columna ('insert','regularizado','CON','CON','varchar','Indicar si el contrato se está regularizando, saltará todos los estados y enviará a estado finalizado','2','','','','','','TextField','Regularizar?','si','','{"config":{"emptyText":"¿Regularizar?",
 "typeAhead": false,
 "triggerAction": "all",
@@ -630,12 +646,12 @@ anchor:"50%",
         combo.setValue("no");
     }
 },
-"store":["si","no"]}}',10,NULL);
-select wf.f_import_ttipo_columna ('insert','id_tipo_cc','CON','CON','integer','','','','','','','','NumberField','','no','','',NULL,NULL);
-select wf.f_import_ttipo_columna ('insert','plazo_auxiliar','CON','CON','varchar','','1000','','','','','','TextField','','no','','',NULL,NULL);
-select wf.f_import_ttipo_columna ('insert','numero_proceso_contratacion','CON','CON','varchar','','100','','','','','','TextField','','no','','',NULL,NULL);
-select wf.f_import_ttipo_columna ('insert','gerencia','ANX','CON','varchar','','50','','','','','','TextField','','no','','',NULL,NULL);
-select wf.f_import_ttipo_columna ('insert','responsable','ANX','CON','varchar','','50','','','','','','TextField','','no','','',NULL,NULL);
+"store":["si","no"]}}',10,NULL, NULL, NULL, NULL);
+select wf.f_import_ttipo_columna ('insert','id_tipo_cc','CON','CON','integer','','','','','','','','NumberField','','no','','',NULL,NULL, NULL, NULL, NULL);
+select wf.f_import_ttipo_columna ('insert','plazo_auxiliar','CON','CON','varchar','','1000','','','','','','TextField','','no','','',NULL,NULL, NULL, NULL, NULL);
+select wf.f_import_ttipo_columna ('insert','numero_proceso_contratacion','CON','CON','varchar','','100','','','','','','TextField','','no','','',NULL,NULL, NULL, NULL, NULL);
+select wf.f_import_ttipo_columna ('insert','gerencia','ANX','CON','varchar','','50','','','','','','TextField','','no','','',NULL,NULL, NULL, NULL, NULL);
+select wf.f_import_ttipo_columna ('insert','responsable','ANX','CON','varchar','','50','','','','','','TextField','','no','','',NULL,NULL, NULL, NULL, NULL);
 select wf.f_import_ttipo_documento ('insert','CONTRATO','CON','Contrato','','','escaneado',0.00,NULL);
 select wf.f_import_ttipo_documento ('delete','ADJ1','CON',NULL,NULL,NULL,NULL,NULL,NULL);
 select wf.f_import_ttipo_documento ('delete','ADJ2','CON',NULL,NULL,NULL,NULL,NULL,NULL);
@@ -967,7 +983,7 @@ select wf.f_import_ttipo_estado_rol ('insert','CON','finalizado','LEG - Abogado'
 /***********************************F-DAT-JRR-LEG-1-30/11/2018****************************************/
 
 /***********************************I-DAT-CAP-LEG-2-13/12/2018****************************************/
-
+/*********************MZM-220222***************** 
 select
 	*
 from
@@ -1056,7 +1072,7 @@ from
 		'',
 		null,
 		null
-	);
+	);*/
 /***********************************F-DAT-CAP-LEG-2-13/12/2018****************************************/
 /***********************************I-DAT-CAP-LEG-3-13/12/2018****************************************/
 ALTER TABLE leg.tcontrato
